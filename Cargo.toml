@@ -1,0 +1,10 @@
+[package]
+name = "par_itertools"
+version = "0.1.0"
+authors = ["Matteo Dell'Acqua <dellacqua.matteo99@gmail.com>"]
+description = "Extra iterator adaptors, iterator methods, free functions, and macros that work in parallel conexts."
+keywords = ["iterator", "data-structure", "permutation", "combination"]
+categories = ["algorithms", "rust-patterns"]
+license = "MIT"
+edition = "2024"
+rust-version = "1.85"
