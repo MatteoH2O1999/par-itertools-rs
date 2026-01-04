@@ -33,9 +33,9 @@ jobs:
       - name: Check code formatting
         run: cargo fmt -- --check
       - name: Build clippy
-        run: cargo clippy
+        run: cargo clippy --all-features
       - name: Check clippy lint
-        run: cargo clippy -- -Dwarnings
+        run: cargo clippy --all-features -- -Dwarnings
 
   docs:
     name: Check docs
@@ -53,7 +53,7 @@ jobs:
           profile: minimal
           components: rust-docs
       - name: Check docs
-        run: cargo doc
+        run: cargo doc --all-features
         env:
           RUSTDOCFLAGS: -D warnings
 
@@ -75,12 +75,16 @@ jobs:
         with:
           channel: stable
           profile: minimal
+          subcommands: cargo-all-features
+          cache: binstall
       - name: Test build
-        run: cargo build --release
+        run: cargo all-features build --release
       - name: Build tests
-        run: cargo test --no-run
+        run: cargo all-features test --no-run
       - name: Run tests
-        run: cargo test
+        run: cargo all-features test --lib --bins --tests
+      - name: Run doc tests
+        run: cargo test --doc --all-features
 
   miri:
     name: Check for UB on ${{ matrix.os }}
@@ -101,12 +105,16 @@ jobs:
           channel: nightly
           profile: minimal
           components: miri
+          subcommands: cargo-all-features
+          cache: binstall
       - name: Build tests
         run: |
           cargo miri setup
-          cargo test --no-run
+          cargo all-features test --no-run
       - name: Run tests
-        run: cargo miri test
+        run: cargo all-features miri test --lib --bins --tests
+      - name: Run doc tests
+        run: cargo miri test --doc --all-features
 
   api:
     name: Check semver and MSV
@@ -122,16 +130,14 @@ jobs:
         with:
           channel: stable
           profile: minimal
-      - name: Install cargo-quickinstall
-        run: cargo install cargo-quickinstall
-      - name: Install cargo-semver-checks and cargo-msrv
-        run: cargo quickinstall cargo-semver-checks cargo-msrv
+          subcommands: cargo-semver-checks cargo-msrv
+          cache: binstall
       - name: Check semver compatibility
-        run: cargo semver-checks
+        run: cargo semver-checks --all-features
       - name: Check minimum Rust version
         run: |
           cargo msrv set 1.85
-          cargo msrv find --write-msrv --ignore-lockfile
+          cargo msrv find --write-msrv --ignore-lockfile --all-features
           git diff --exit-code
 
   publish:
