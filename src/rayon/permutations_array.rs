@@ -242,7 +242,8 @@ impl<const LEN: usize, const WITH_REPLACEMENT: bool>
 
             for (s, &c) in state.iter_mut().zip(counter.iter()) {
                 *s = (0..num_elements)
-                    .filter(|&i| if WITH_REPLACEMENT { true } else { used[i] == 0 }).nth(c)
+                    .filter(|&i| if WITH_REPLACEMENT { true } else { used[i] == 0 })
+                    .nth(c)
                     .expect("Should be able to choose an element");
                 if !WITH_REPLACEMENT {
                     used[*s] = 1;
