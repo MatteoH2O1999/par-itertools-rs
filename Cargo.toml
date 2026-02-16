@@ -1,6 +1,6 @@
 [package]
 name = "par_itertools"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Matteo Dell'Acqua <dellacqua.matteo99@gmail.com>"]
 description = "Extra iterator adaptors, iterator methods, free functions, and macros that work in parallel conexts."
 keywords = ["iterator", "data-structure", "permutation", "combination"]
