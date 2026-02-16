@@ -136,7 +136,7 @@ jobs:
         run: cargo semver-checks --all-features
       - name: Check minimum Rust version
         run: |
-          cargo msrv set 1.85
+          cargo msrv set 1.56
           cargo msrv find --write-msrv --ignore-lockfile --all-features
           git diff --exit-code
 
