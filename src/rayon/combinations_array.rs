@@ -323,7 +323,7 @@ impl<const LEN: usize, const WITH_REPLACEMENT: bool>
                 let invalid = if WITH_REPLACEMENT {
                     *current_state + 1 < previous_state
                 } else {
-                    *current_state + 1 <= previous_state
+                    *current_state < previous_state
                 };
 
                 if invalid {

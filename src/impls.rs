@@ -1,6 +1,6 @@
 use crate::ParItertools;
 
-impl<'a, T: Copy + Sync + Send> ParItertools<T> for &'a [T] {
+impl<T: Copy + Sync + Send> ParItertools<T> for &[T] {
     #[cfg(feature = "rayon")]
     fn permutations<const LEN: usize>(
         self,
