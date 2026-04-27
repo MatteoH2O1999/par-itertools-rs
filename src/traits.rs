@@ -1,4 +1,14 @@
-pub trait ParItertools<T> {
+pub trait ImplType {}
+
+pub struct ImplIterator;
+
+impl ImplType for ImplIterator {}
+
+pub struct ImplSlice;
+
+impl ImplType for ImplSlice {}
+
+pub trait ParItertools<T, B: ImplType> {
     #[cfg(feature = "rayon")]
     fn combinations<const LEN: usize>(
         self,
