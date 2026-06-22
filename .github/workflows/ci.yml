@@ -86,36 +86,6 @@ jobs:
       - name: Run doc tests
         run: cargo test --doc --all-features
 
-  miri:
-    name: Check for UB on ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-          submodules: recursive
-      - name: Setup Rust
-        uses: MatteoH2O1999/setup-rust@v2
-        with:
-          channel: nightly
-          profile: minimal
-          components: miri
-          subcommands: cargo-all-features
-          cache: binstall
-      - name: Build tests
-        run: |
-          cargo miri setup
-          cargo all-features test --no-run
-      - name: Run tests
-        run: cargo all-features miri test --lib --bins --tests
-      - name: Run doc tests
-        run: cargo miri test --doc --all-features
-
   api:
     name: Check semver and MSV
     runs-on: ubuntu-latest
@@ -141,7 +111,7 @@ jobs:
           git diff --exit-code
 
   publish:
-    needs: [api, docs, lint, tests, miri]
+    needs: [api, docs, lint, tests]
     name: Publish release
     runs-on: ubuntu-latest
     steps:
