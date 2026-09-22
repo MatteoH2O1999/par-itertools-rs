@@ -5,28 +5,28 @@ impl<T: Copy + Sync + Send, U: AsRef<[T]> + Send> ParItertools<T, ImplSlice> for
     fn permutations<const LEN: usize>(
         self,
     ) -> impl rayon::iter::IndexedParallelIterator<Item = [T; LEN]> {
-        crate::rayon::ParallelPermutationArray::new::<LEN, false>(self)
+        crate::rayon_impl::ParallelPermutationArray::new::<LEN, false>(self)
     }
 
     #[cfg(feature = "rayon")]
     fn permutations_with_replacement<const LEN: usize>(
         self,
     ) -> impl rayon::iter::IndexedParallelIterator<Item = [T; LEN]> {
-        crate::rayon::ParallelPermutationArray::new::<LEN, true>(self)
+        crate::rayon_impl::ParallelPermutationArray::new::<LEN, true>(self)
     }
 
     #[cfg(feature = "rayon")]
     fn combinations<const LEN: usize>(
         self,
     ) -> impl rayon::iter::IndexedParallelIterator<Item = [T; LEN]> {
-        crate::rayon::ParallelCombinationArray::new::<LEN, false>(self)
+        crate::rayon_impl::ParallelCombinationArray::new::<LEN, false>(self)
     }
 
     #[cfg(feature = "rayon")]
     fn combinations_with_replacement<const LEN: usize>(
         self,
     ) -> impl rayon::iter::IndexedParallelIterator<Item = [T; LEN]> {
-        crate::rayon::ParallelCombinationArray::new::<LEN, true>(self)
+        crate::rayon_impl::ParallelCombinationArray::new::<LEN, true>(self)
     }
 }
 
@@ -35,27 +35,27 @@ impl<T: Copy + Sync + Send, U: Iterator<Item = T>> ParItertools<T, ImplIterator>
     fn permutations<const LEN: usize>(
         self,
     ) -> impl rayon::iter::IndexedParallelIterator<Item = [T; LEN]> {
-        crate::rayon::ParallelPermutationArray::new::<LEN, false>(self.collect::<Box<_>>())
+        crate::rayon_impl::ParallelPermutationArray::new::<LEN, false>(self.collect::<Box<_>>())
     }
 
     #[cfg(feature = "rayon")]
     fn permutations_with_replacement<const LEN: usize>(
         self,
     ) -> impl rayon::iter::IndexedParallelIterator<Item = [T; LEN]> {
-        crate::rayon::ParallelPermutationArray::new::<LEN, true>(self.collect::<Box<_>>())
+        crate::rayon_impl::ParallelPermutationArray::new::<LEN, true>(self.collect::<Box<_>>())
     }
 
     #[cfg(feature = "rayon")]
     fn combinations<const LEN: usize>(
         self,
     ) -> impl rayon::iter::IndexedParallelIterator<Item = [T; LEN]> {
-        crate::rayon::ParallelCombinationArray::new::<LEN, false>(self.collect::<Box<_>>())
+        crate::rayon_impl::ParallelCombinationArray::new::<LEN, false>(self.collect::<Box<_>>())
     }
 
     #[cfg(feature = "rayon")]
     fn combinations_with_replacement<const LEN: usize>(
         self,
     ) -> impl rayon::iter::IndexedParallelIterator<Item = [T; LEN]> {
-        crate::rayon::ParallelCombinationArray::new::<LEN, true>(self.collect::<Box<_>>())
+        crate::rayon_impl::ParallelCombinationArray::new::<LEN, true>(self.collect::<Box<_>>())
     }
 }

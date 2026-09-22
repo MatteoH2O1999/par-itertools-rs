@@ -1,9 +1,12 @@
+#[doc(hidden)]
 pub trait ImplType {}
 
+#[doc(hidden)]
 pub struct ImplIterator;
 
 impl ImplType for ImplIterator {}
 
+#[doc(hidden)]
 pub struct ImplSlice;
 
 impl ImplType for ImplSlice {}
